@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Apply demo_data/seed.sql when the DB has no instruments (public demo boot).
 
-Supports pg_dump format including COPY ... FROM stdin via psql when available,
-or a psycopg2 fallback that understands COPY blocks.
+Supports pg_dump format including COPY ... FROM stdin (psql if present,
+otherwise a psycopg2 COPY-aware loader).
 """
 from __future__ import annotations
 
@@ -26,8 +26,6 @@ def _normalize_url(url: str) -> str:
 
 
 def _instrument_count() -> int:
-    sys.path.insert(0, str(ROOT))
-    os.chdir(ROOT)
     from signals.db.connection import get_connection
 
     with get_connection() as conn:
@@ -46,34 +44,44 @@ def _instrument_count() -> int:
 
 
 def _apply_with_psql(url: str) -> None:
-    cmd = [
-        "psql",
-        url,
-        "-v",
-        "ON_ERROR_STOP=1",
-        "-f",
-        str(SEED),
-    ]
     print("[bootstrap] applying seed via psql …")
-    subprocess.check_call(cmd)
+    subprocess.check_call(
+        ["psql", url, "-v", "ON_ERROR_STOP=1", "-f", str(SEED)]
+    )
 
 
-def _exec_sql_chunk(cur, text: str) -> None:
-    chunk = text.strip()
-    if not chunk:
-        return
-    # Skip dump noise / empty config-only blocks that are still valid
-    cur.execute(chunk)
+def _is_comment_or_empty(stmt: str) -> bool:
+    for line in stmt.splitlines():
+        s = line.strip()
+        if not s:
+            continue
+        if s.startswith("--"):
+            continue
+        return False
+    return True
+
+
+def _exec_ddl(cur, text: str) -> None:
+    buf: list[str] = []
+    for line in text.splitlines(True):
+        buf.append(line)
+        if line.rstrip().endswith(";"):
+            stmt = "".join(buf).strip()
+            buf = []
+            if not stmt or _is_comment_or_empty(stmt):
+                continue
+            cur.execute(stmt)
+    tail = "".join(buf).strip()
+    if tail and not _is_comment_or_empty(tail):
+        cur.execute(tail)
 
 
 def _apply_with_psycopg2(url: str) -> None:
     import psycopg2
 
     print("[bootstrap] applying seed via psycopg2 (COPY-aware) …")
-    sql = SEED.read_text()
-    lines = sql.splitlines(keepends=True)
+    lines = SEED.read_text().splitlines(keepends=True)
     conn = psycopg2.connect(url)
-    conn.autocommit = False
     try:
         cur = conn.cursor()
         buf: list[str] = []
@@ -82,7 +90,7 @@ def _apply_with_psycopg2(url: str) -> None:
             line = lines[i]
             if line.startswith("COPY ") and line.rstrip().endswith("FROM stdin;"):
                 if buf:
-                    _exec_sql_chunk(cur, "".join(buf))
+                    _exec_ddl(cur, "".join(buf))
                     buf = []
                 copy_sql = line
                 i += 1
@@ -97,13 +105,9 @@ def _apply_with_psycopg2(url: str) -> None:
                 cur.copy_expert(copy_sql, data)
                 continue
             buf.append(line)
-            # Flush on blank line after semicolon to keep chunks smaller
-            if line.strip() == "" and buf and "".join(buf).rstrip().endswith(";"):
-                _exec_sql_chunk(cur, "".join(buf))
-                buf = []
             i += 1
         if buf:
-            _exec_sql_chunk(cur, "".join(buf))
+            _exec_ddl(cur, "".join(buf))
         conn.commit()
         cur.close()
     except Exception:

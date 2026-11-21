@@ -7,10 +7,11 @@ databases:
 services:
   - type: web
     name: signal-dashboard-demo
-    runtime: docker
+    runtime: python
     plan: free
-    dockerfilePath: ./Dockerfile.demo
-    dockerContext: .
+    rootDir: .
+    buildCommand: pip install -r requirements-demo.txt
+    startCommand: bash scripts/start_demo.sh
     healthCheckPath: /api/demo
     envVars:
       - key: SIGNAL_DEMO
