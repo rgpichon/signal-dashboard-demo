@@ -1,0 +1,50 @@
+# Topic taxonomy for zero-shot BART classifier. Only topics with score > 0.35 are stored.
+
+macro:
+  - rates
+  - inflation
+  - growth
+  - fiscal_policy
+  - labour_market
+  - recession
+
+central_bank:
+  - ECB_policy
+  - fed_policy
+  - boe_policy
+  - hawkish
+  - dovish
+  - pivot
+
+credit:
+  - credit_cycle
+  - spreads
+  - default_risk
+  - bank_lending
+  - IG
+  - HY
+
+sectors:
+  - energy
+  - infrastructure
+  - real_estate
+  - banking
+  - technology
+  - commodities
+
+geography:
+  - US
+  - EU
+  - Germany
+  - UK
+  - China
+  - EM
+  - Global
+
+risk:
+  - risk_on
+  - risk_off
+  - volatility
+  - contagion
+  - stress
+  - liquidity

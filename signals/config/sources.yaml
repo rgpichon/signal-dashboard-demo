@@ -1,0 +1,243 @@
+# SIGNAL — Ingestion sources. Add new sources here; no code change required.
+# enabled: false skips the source (e.g. BIS placeholder).
+
+sources:
+  - id: ecb_speeches_rss
+    type: rss
+    url: https://www.ecb.europa.eu/rss/press.html
+    fallback_url: https://www.ecb.europa.eu/rss/press.rss
+    frequency: daily
+    enabled: true
+
+  - id: fed_speeches_rss
+    type: rss
+    url: https://www.federalreserve.gov/feeds/speeches.xml
+    frequency: daily
+    enabled: true
+
+  - id: bis_papers_rss
+    type: rss
+    url: https://www.bis.org/doclist/wppubls.rss
+    fallback_url: https://www.bis.org/doclist/all_pressrels.rss
+    frequency: daily
+    enabled: true
+
+  - id: reuters_markets_rss
+    type: rss
+    url: https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines
+    fallback_url: https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml
+    frequency: daily
+    enabled: true
+
+  - id: foreign_affairs_rss
+    type: rss
+    url: https://www.foreignaffairs.com/rss.xml
+    tier: 1
+    frequency: daily
+    enabled: true
+
+  - id: project_syndicate_rss
+    type: rss
+    url: https://www.project-syndicate.org/rss
+    tier: 1
+    frequency: daily
+    enabled: true
+
+  - id: cfr_rss
+    type: rss
+    url: https://www.cfr.org/rss/site.xml
+    tier: 1
+    frequency: daily
+    enabled: false
+
+  - id: chatham_house_rss
+    type: rss
+    url: https://www.chathamhouse.org/rss.xml
+    tier: 1
+    frequency: daily
+    enabled: false
+
+  - id: politico_world_rss
+    type: rss
+    url: https://www.politico.com/rss/politicopicks.xml
+    tier: 2
+    frequency: daily
+    enabled: false
+
+  - id: mit_tech_review_rss
+    type: rss
+    url: https://www.technologyreview.com/feed/
+    tier: 1
+    frequency: daily
+    enabled: true
+
+  - id: ars_technica_rss
+    type: rss
+    url: https://feeds.arstechnica.com/arstechnica/index
+    tier: 2
+    frequency: daily
+    enabled: true
+
+  - id: the_verge_rss
+    type: rss
+    url: https://www.theverge.com/rss/index.xml
+    tier: 2
+    frequency: daily
+    enabled: true
+
+  - id: wired_rss
+    type: rss
+    url: https://www.wired.com/feed/rss
+    tier: 2
+    frequency: daily
+    enabled: true
+
+  - id: techcrunch_rss
+    type: rss
+    url: https://techcrunch.com/feed/
+    tier: 2
+    frequency: daily
+    enabled: true
+
+  - id: carbon_brief_rss
+    type: rss
+    url: https://www.carbonbrief.org/feed/
+    tier: 1
+    frequency: daily
+    enabled: true
+
+  - id: iea_rss
+    type: rss
+    url: https://www.iea.org/feed
+    tier: 1
+    frequency: daily
+    enabled: false
+
+  - id: energy_monitor_rss
+    type: rss
+    url: https://www.energymonitor.ai/feed/
+    tier: 2
+    frequency: daily
+    enabled: true
+
+  - id: bloomberg_green_rss
+    type: rss
+    url: https://feeds.bloomberg.com/green/news.rss
+    tier: 1
+    frequency: daily
+    enabled: true
+
+  - id: bbc_world_rss
+    type: rss
+    url: https://feeds.bbci.co.uk/news/world/rss.xml
+    tier: 2
+    frequency: daily
+    enabled: true
+
+  - id: bbc_business_rss
+    type: rss
+    url: https://feeds.bbci.co.uk/news/business/rss.xml
+    tier: 2
+    frequency: daily
+    enabled: true
+
+  - id: guardian_world_rss
+    type: rss
+    url: https://www.theguardian.com/world/rss
+    tier: 2
+    frequency: daily
+    enabled: true
+
+  - id: guardian_business_rss
+    type: rss
+    url: https://www.theguardian.com/uk/business/rss
+    tier: 2
+    frequency: daily
+    enabled: true
+
+  - id: economist_rss
+    type: rss
+    url: https://www.economist.com/finance-and-economics/rss.xml
+    tier: 1
+    frequency: daily
+    enabled: true
+
+  - id: nyt_world_rss
+    type: rss
+    url: https://rss.nytimes.com/services/xml/rss/nyt/World.xml
+    tier: 1
+    frequency: daily
+    enabled: true
+
+  - id: nyt_business_rss
+    type: rss
+    url: https://rss.nytimes.com/services/xml/rss/nyt/Business.xml
+    tier: 1
+    frequency: daily
+    enabled: true
+
+  - id: ft_world_rss
+    type: rss
+    url: https://www.ft.com/world?format=rss
+    tier: 1
+    frequency: daily
+    enabled: true
+
+  - id: vox_rss
+    type: rss
+    url: https://www.vox.com/rss/index.xml
+    tier: 2
+    frequency: daily
+    enabled: true
+
+  - id: fred_macro_series
+    type: fred_api
+    series:
+      - DGS3MO
+      - DGS2
+      - DGS5
+      - DGS10
+      - DGS30
+      - T10Y2Y
+      - DFII10
+      - DFII5
+      - T10YIE
+      - T5YIE
+      - BAMLC0A0CM
+      - BAMLH0A0HYM2
+      - CPIAUCSL
+      - UNRATE
+      - INDPRO
+      - RSAFS
+      - UMCSENT
+      - MANEMP
+    frequency: daily
+    enabled: true
+
+  - id: yfinance_instruments
+    type: yfinance
+    frequency: daily
+    enabled: true
+
+  - id: ecb_sdw_series
+    type: ecb_sdw
+    series:
+      - IRS.M.DE.L.L40.CI.0.EUR.2Y.NX
+      - IRS.M.IT.L.L40.CI.0.EUR.10Y.NX
+    frequency: daily
+    enabled: true
+
+  - id: cftc_cot_weekly
+    type: cftc
+    frequency: weekly
+    enabled: true
+
+  - id: bis_placeholder
+    type: bis
+    enabled: false
+
+  - id: ecb_press_releases_scrape
+    type: scrape
+    url: https://www.ecb.europa.eu/press/pr/date/2026/html/index.en.html
+    frequency: daily
+    enabled: true

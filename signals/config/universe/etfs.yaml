@@ -1,0 +1,37 @@
+# ETFs — US Sector (SPDR), Broad Market, European, Fixed Income
+# Seeded via db/seed_universe.py.
+
+instruments:
+  # US Sector ETFs
+  - { id: "ETF.XLE",  name: "Energy Select Sector SPDR",        yfinance_ticker: "XLE",  asset_class: etf, sector: Energy,        currency: USD }
+  - { id: "ETF.XLF",  name: "Financials Select Sector SPDR",    yfinance_ticker: "XLF",  asset_class: etf, sector: Financials,    currency: USD }
+  - { id: "ETF.XLK",  name: "Technology Select Sector SPDR",    yfinance_ticker: "XLK",  asset_class: etf, sector: Technology,    currency: USD }
+  - { id: "ETF.XLV",  name: "Healthcare Select Sector SPDR",    yfinance_ticker: "XLV",  asset_class: etf, sector: Healthcare,    currency: USD }
+  - { id: "ETF.XLI",  name: "Industrials Select Sector SPDR",   yfinance_ticker: "XLI",  asset_class: etf, sector: Industrials,   currency: USD }
+  - { id: "ETF.XLB",  name: "Materials Select Sector SPDR",     yfinance_ticker: "XLB",  asset_class: etf, sector: Materials,     currency: USD }
+  - { id: "ETF.XLY",  name: "Consumer Discretionary SPDR",      yfinance_ticker: "XLY",  asset_class: etf, sector: Consumer,      currency: USD }
+  - { id: "ETF.XLP",  name: "Consumer Staples SPDR",            yfinance_ticker: "XLP",  asset_class: etf, sector: Consumer,      currency: USD }
+  - { id: "ETF.XLU",  name: "Utilities Select Sector SPDR",     yfinance_ticker: "XLU",  asset_class: etf, sector: Utilities,     currency: USD }
+  - { id: "ETF.XLRE", name: "Real Estate Select Sector SPDR",   yfinance_ticker: "XLRE", asset_class: etf, sector: Real Estate,   currency: USD }
+
+  # US Broad Market
+  - { id: "ETF.SPY",  name: "SPDR S&P 500 ETF",                 yfinance_ticker: "SPY",  asset_class: etf, sector: Broad Market,  currency: USD }
+  - { id: "ETF.QQQ",  name: "Invesco QQQ (Nasdaq 100)",         yfinance_ticker: "QQQ",  asset_class: etf, sector: Broad Market,  currency: USD }
+  - { id: "ETF.IWM",  name: "iShares Russell 2000 ETF",         yfinance_ticker: "IWM",  asset_class: etf, sector: Broad Market,  currency: USD }
+  - { id: "ETF.DIA",  name: "SPDR Dow Jones Industrial Avg",    yfinance_ticker: "DIA",  asset_class: etf, sector: Broad Market,  currency: USD }
+
+  # European Broad Market
+  - { id: "ETF.EZU",  name: "iShares MSCI Eurozone ETF",        yfinance_ticker: "EZU",  asset_class: etf, sector: Broad Market,  currency: USD }
+  - { id: "ETF.EWU",  name: "iShares MSCI United Kingdom ETF",  yfinance_ticker: "EWU",  asset_class: etf, sector: Broad Market,  currency: USD }
+  - { id: "ETF.EWG",  name: "iShares MSCI Germany ETF",         yfinance_ticker: "EWG",  asset_class: etf, sector: Broad Market,  currency: USD }
+  - { id: "ETF.EWQ",  name: "iShares MSCI France ETF",          yfinance_ticker: "EWQ",  asset_class: etf, sector: Broad Market,  currency: USD }
+
+  # Fixed Income
+  - { id: "ETF.LQD",  name: "iShares IG Corporate Bond ETF",    yfinance_ticker: "LQD",  asset_class: etf, sector: Fixed Income,  currency: USD }
+  - { id: "ETF.HYG",  name: "iShares HY Corporate Bond ETF",    yfinance_ticker: "HYG",  asset_class: etf, sector: Fixed Income,  currency: USD }
+  - { id: "ETF.TLT",  name: "iShares 20+ Year Treasury ETF",    yfinance_ticker: "TLT",  asset_class: etf, sector: Fixed Income,  currency: USD }
+  - { id: "ETF.SHY",  name: "iShares 1-3 Year Treasury ETF",    yfinance_ticker: "SHY",  asset_class: etf, sector: Fixed Income,  currency: USD }
+
+  # Commodities via ETF
+  - { id: "ETF.GLD",  name: "SPDR Gold Shares",                 yfinance_ticker: "GLD",  asset_class: etf, sector: Commodities,   currency: USD }
+  - { id: "ETF.USO",  name: "United States Oil Fund",           yfinance_ticker: "USO",  asset_class: etf, sector: Commodities,   currency: USD }

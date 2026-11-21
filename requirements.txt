@@ -1,0 +1,29 @@
+# SIGNAL — Python 3.11+
+# Foundation & Phase 1
+psycopg2-binary>=2.9.9
+PyYAML>=6.0
+python-dotenv>=1.0.0
+APScheduler>=3.10.0
+
+# Phase 2 (ingestion)
+requests>=2.31.0
+feedparser>=6.0.0
+beautifulsoup4>=4.12.0
+
+# Phase 3 (NLP)
+torch>=2.0.0
+transformers>=4.30.0
+spacy>=3.7.0
+
+# Phase 4 (analytics)
+scipy>=1.11.0
+
+# Phase 5 (thesis)
+anthropic>=0.18.0
+
+# Phase 6 (output) — dashboard API
+fastapi>=0.100.0
+uvicorn>=0.22.0
+
+# Market data (backfill / Phase 2)
+yfinance>=0.2.0

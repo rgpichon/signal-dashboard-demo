@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGNAL Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Populated by demo packaging; empty string = same-origin API.
+    window.SIGNAL_API_BASE = window.SIGNAL_API_BASE || undefined;
+    window.SIGNAL_DEMO = window.SIGNAL_DEMO || undefined;
+  </script>
+</head>
+<body>
+  <div id="demo-banner" class="demo-banner" hidden>
+    <strong>Public demo</strong> — real SIGNAL dashboard, read-only. Pipeline and thesis writes are disabled.
+  </div>
+  <div id="file-protocol-block" class="file-protocol-block" style="display: none;">
+    <div class="file-protocol-inner">
+      <div class="file-protocol-logo">SIGNAL</div>
+      <p class="file-protocol-title">Dashboard must be served over HTTP</p>
+      <pre class="file-protocol-cmd" id="file-protocol-cmd">python signals/dashboard/serve.py</pre>
+      <p class="file-protocol-then">Then open: <strong>http://localhost:3000</strong></p>
+      <button type="button" class="file-protocol-copy" id="file-protocol-copy">Copy command</button>
+    </div>
+  </div>
+  <div class="app" id="app-main">
+    <nav id="icon-rail">
+      <div class="rail-mark">S</div>
+      <div class="rail-nav">
+        <button type="button" class="rail-item active" data-section="research" title="Research">R</button>
+        <button type="button" class="rail-item" data-section="intelligence" title="Intelligence">I</button>
+        <button type="button" class="rail-item" data-section="thesis-engine" title="Thesis Engine">E</button>
+      </div>
+      <div class="rail-bottom">
+        <button type="button" class="rail-item rail-item--action" id="rail-pipeline-btn" title="Run pipeline">&#x25B6;</button>
+        <button type="button" class="rail-item rail-item--action" id="rail-theme-toggle" title="Toggle dark mode">&#x25D0;</button>
+      </div>
+    </nav>
+    <div id="sidebar-panel" class="sidebar-panel collapsed">
+      <!-- Content injected by Shell.renderPanel() in S4 -->
+    </div>
+    <div id="sidebar-overlay"></div>
+    <main id="main-content">
+        <div class="screen active" id="screen-briefing" data-section="briefing">
+          <div class="briefing-scroll">
+            <section class="panel briefing-zone">
+              <h3 class="panel-header">TODAY'S HIGHLIGHTS</h3>
+              <div class="panel-body" id="briefing-highlights"></div>
+            </section>
+            <section class="panel briefing-zone">
+              <h3 class="panel-header">SIGNAL WATCH</h3>
+              <div class="panel-body" id="briefing-signal-watch"></div>
+            </section>
+            <section class="panel briefing-zone">
+              <h3 class="panel-header">MARKET SNAPSHOT</h3>
+              <div class="panel-body" id="briefing-market-snapshot"></div>
+            </section>
+          </div>
+        </div>
+        <div class="screen" id="screen-signals" data-section="signals">
+          <nav class="subnav">
+            <button type="button" class="subnav-btn active" data-subview="surface">Surface</button>
+            <button type="button" class="subnav-btn" data-subview="deepdive">Deep Dive</button>
+            <button type="button" class="subnav-btn" data-subview="anomalies">Anomalies</button>
+          </nav>
+          <div class="subview active" data-subview="surface" id="signals-surface">
+            <div class="filter-row">
+              <span class="surface-toggle">
+                <button type="button" class="toggle-btn active" data-surface="notable">Notable only</button>
+                <button type="button" class="toggle-btn" data-surface="all">All topics</button>
+              </span>
+              <input type="text" class="filter-input" id="filter-topic" placeholder="Filter by topic…">
+            </div>
+            <div id="signals-heatmap-wrap"></div>
+          </div>
+          <div class="subview" data-subview="deepdive" id="signals-deepdive">
+            <div class="deepdive-layout">
+              <div class="deepdive-topics" id="deepdive-topic-list"></div>
+              <div class="deepdive-detail" id="deepdive-detail-wrap"></div>
+            </div>
+          </div>
+          <div class="subview" data-subview="anomalies" id="signals-anomalies">
+            <div id="anomalies-table-wrap"></div>
+          </div>
+        </div>
+
+        <div class="screen" id="screen-universe" data-section="universe">
+          <nav class="subnav">
+            <button type="button" class="subnav-btn active" data-subview="grid">Grid</button>
+            <button type="button" class="subnav-btn" data-subview="table">Table</button>
+          </nav>
+          <div class="filter-row filter-asset">
+            <span class="universe-sort">
+              Sort by: <button type="button" class="sort-btn active" data-sort="signal">Signal</button>
+              <button type="button" class="sort-btn" data-sort="name">Name</button>
+              <button type="button" class="sort-btn" data-sort="change">1d Change</button>
+              <button type="button" class="sort-btn" data-sort="risk">Risk</button>
+            </span>
+            <button type="button" class="filter-btn active" data-asset="ALL">All</button>
+            <button type="button" class="filter-btn" data-asset="equity">Equity</button>
+            <button type="button" class="filter-btn" data-asset="fixed_income">Fixed income</button>
+            <button type="button" class="filter-btn" data-asset="commodity">Commodity</button>
+            <button type="button" class="filter-btn" data-asset="fx">FX</button>
+            <button type="button" class="filter-btn" data-asset="rates">Rates</button>
+          </div>
+          <div class="subview active" data-subview="grid" id="universe-grid-wrap"></div>
+          <div class="subview" data-subview="table" id="universe-table-wrap"></div>
+        </div>
+
+        <div class="screen" id="screen-market" data-section="market">
+          <nav class="subnav">
+            <button type="button" class="subnav-btn active" data-subview="chart">Chart</button>
+            <button type="button" class="subnav-btn" data-subview="correlations">Correlations</button>
+          </nav>
+          <div class="subview active" data-subview="chart" id="market-chart-view">
+            <div class="chart-controls">
+              <label>Instrument <select id="market-series-select"></select></label>
+              <div class="chart-range">
+                <button type="button" class="range-btn" data-days="7">7D</button>
+                <button type="button" class="range-btn" data-days="14">14D</button>
+                <button type="button" class="range-btn active" data-days="30">30D</button>
+              </div>
+            </div>
+            <div class="chart-svg-wrap" id="chart-svg-wrap"></div>
+            <div class="chart-svg-wrap chart-zscore-wrap" id="chart-zscore-wrap"></div>
+            <div class="chart-stats" id="chart-stats"></div>
+          </div>
+          <div class="subview" data-subview="correlations" id="market-correlations-view">
+            <div class="correlations-filter">
+              <button type="button" class="lag-btn active" data-lag="all">All lags</button>
+              <button type="button" class="lag-btn" data-lag="0">Lag 0</button>
+              <button type="button" class="lag-btn" data-lag="1">Lag 1</button>
+              <button type="button" class="lag-btn" data-lag="3">Lag 3+</button>
+            </div>
+            <div id="market-correlations-wrap"></div>
+          </div>
+        </div>
+
+        <div class="screen" id="screen-research" data-section="research">
+          <!-- REMOVED Spec3a: replaced by @ picker in Spec3b
+          <div class="research-search-bar">
+            <div class="research-search-input-wrap">
+              <input type="text"
+                     id="research-search-input"
+                     placeholder="Search instruments, macro series, signals..."
+                     autocomplete="off" />
+            </div>
+            <div class="research-search-actions">
+              <span class="search-x-label">X:</span>
+              <div class="search-x-pill" id="search-x-pill">—</div>
+              <span class="search-arrow">→</span>
+              <span class="search-y-label">Y:</span>
+              <div class="search-y-pills" id="search-y-pills">
+                <span class="search-y-empty">—</span>
+              </div>
+              <button class="search-add-y btn-outline" id="search-add-y">+ Y</button>
+              <button class="search-analyse-btn" id="search-analyse-btn">Analyse</button>
+            </div>
+          </div>
+          -->
+
+          <!-- Tab row: Market | Theses | Analysis (Spec 12f: Board removed) -->
+          <div id="research-tab-row" class="research-tab-row">
+            <button type="button" class="research-tab active" data-view="overview">Market</button>
+            <button type="button" class="research-tab" data-view="thesislist">Theses</button>
+            <button type="button" class="research-tab" data-view="analysis">Analysis</button>
+            <span class="research-tab-breadcrumb" id="research-breadcrumb"></span>
+          </div>
+
+          <!-- Body: sidebar + canvas -->
+          <div class="research-body">
+            <!-- Sidebar -->
+            <div class="research-sidebar" id="research-sidebar">
+              <div class="sidebar-search-wrap">
+                <input type="text"
+                       id="sidebar-search"
+                       placeholder="Filter..."
+                       class="sidebar-search-input" />
+              </div>
+              <div class="sidebar-section">
+                <div class="sidebar-section-label">VIEWS</div>
+                <div class="sidebar-item sidebar-nav-item active" data-view="overview">
+                  <span class="sidebar-item-name">Market</span>
+                </div>
+                <div class="sidebar-item sidebar-nav-item" data-view="analysis">
+                  <span class="sidebar-item-name">Analysis</span>
+                </div>
+                <div class="sidebar-item sidebar-nav-item" data-view="thesis">
+                  <span class="sidebar-item-name">Thesis</span>
+                </div>
+                <div class="sidebar-item sidebar-nav-item" data-view="thesislist">
+                  <span class="sidebar-item-name">Theses</span>
+                </div>
+              </div>
+              <div class="sidebar-section">
+                <div class="sidebar-section-label">COMPUTED DATA</div>
+                <div class="sidebar-item sidebar-computed-item" data-view="signals">
+                  <span class="sidebar-item-abbr">SIG</span>
+                  <span class="sidebar-item-name">Signals</span>
+                </div>
+                <div class="sidebar-item sidebar-computed-item" data-view="correlations">
+                  <span class="sidebar-item-abbr">COR</span>
+                  <span class="sidebar-item-name">Correlations</span>
+                </div>
+                <div class="sidebar-item sidebar-computed-item" data-view="impact">
+                  <span class="sidebar-item-abbr">IMP</span>
+                  <span class="sidebar-item-name">Market Impact</span>
+                </div>
+                <div class="sidebar-item sidebar-computed-item" data-view="regime">
+                  <span class="sidebar-item-abbr">REG</span>
+                  <span class="sidebar-item-name">Regime</span>
+                </div>
+                <div class="sidebar-item sidebar-computed-item" data-view="forecasts">
+                  <span class="sidebar-item-abbr">FOR</span>
+                  <span class="sidebar-item-name">Forecasts</span>
+                </div>
+                <div class="sidebar-item sidebar-computed-item" data-view="volatility">
+                  <span class="sidebar-item-abbr">VOL</span>
+                  <span class="sidebar-item-name">Volatility</span>
+                </div>
+                <div class="sidebar-item sidebar-computed-item" data-view="scenarios">
+                  <span class="sidebar-item-abbr">SCN</span>
+                  <span class="sidebar-item-name">Scenarios</span>
+                </div>
+                <div class="sidebar-item sidebar-computed-item" data-view="news">
+                  <span class="sidebar-item-abbr">ART</span>
+                  <span class="sidebar-item-name">News & Articles</span>
+                </div>
+              </div>
+              <div id="sidebar-instruments"></div>
+              <div class="sidebar-section" id="sidebar-signals-section">
+                <div class="sidebar-section-label">SIGNALS</div>
+                <div id="sidebar-signal-topics"></div>
+              </div>
+            </div>
+
+            <!-- Canvas -->
+            <div class="research-canvas" id="research-canvas">
+              <div class="canvas-view" id="canvas-overview">
+                <div class="canvas-empty-state">Loading market overview...</div>
+              </div>
+              <div class="canvas-view active" id="canvas-analysis">
+                <div class="canvas-empty-state">
+                  Select X and Y instruments above, then click Analyse
+                </div>
+              </div>
+              <div class="canvas-view" id="canvas-thesis">
+                <div class="canvas-empty-state">Loading thesis editor...</div>
+              </div>
+              <div class="canvas-view" id="canvas-instrument">
+                <div class="canvas-empty-state">Select an instrument from the sidebar.</div>
+              </div>
+              <div class="canvas-view" id="canvas-signals">
+                <div class="canvas-empty-state">Loading signals...</div>
+              </div>
+              <div class="canvas-view" id="canvas-correlations">
+                <div class="canvas-empty-state">Loading correlations...</div>
+              </div>
+              <div class="canvas-view" id="canvas-impact">
+                <div class="canvas-empty-state">Set X and Y above to run impact analysis.</div>
+              </div>
+              <div class="canvas-view" id="canvas-regime">
+                <div class="canvas-empty-state">Loading regime data...</div>
+              </div>
+              <div class="canvas-view" id="canvas-forecasts">
+                <div class="canvas-empty-state">Select an instrument to view forecasts.</div>
+              </div>
+              <div class="canvas-view" id="canvas-volatility">
+                <div class="canvas-empty-state">Select an instrument to view volatility.</div>
+              </div>
+              <div class="canvas-view" id="canvas-scenarios">
+                <div class="canvas-empty-state">Loading scenarios...</div>
+              </div>
+              <div class="canvas-view" id="canvas-news">
+                <div class="canvas-empty-state">Loading articles...</div>
+              </div>
+              <div class="canvas-view" id="canvas-thesislist"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="screen-regime" data-section="regime">
+          <nav class="subnav">
+            <button type="button" class="subnav-btn active" data-subview="current">Current</button>
+            <button type="button" class="subnav-btn" data-subview="history">History</button>
+            <button type="button" class="subnav-btn" data-subview="interpretation">Interpretation</button>
+          </nav>
+          <div class="subview active" data-subview="current" id="regime-current">
+            <div id="regime-indicators-wrap"></div>
+            <div class="regime-fingerprint-wrap">
+              <pre class="regime-fingerprint" id="regime-fingerprint"></pre>
+            </div>
+            <p class="regime-computed" id="regime-computed"></p>
+            <section class="panel">
+              <h3 class="panel-header">REGIME INTERPRETATION</h3>
+              <div class="panel-body" id="regime-interpretation"></div>
+            </section>
+            <section class="panel">
+              <h3 class="panel-header">REGIME IMPLICATIONS</h3>
+              <div class="panel-body" id="regime-implications-wrap"></div>
+            </section>
+          </div>
+          <div class="subview" data-subview="history" id="regime-history">
+            <div id="regime-history-charts"></div>
+          </div>
+          <div class="subview" data-subview="interpretation" id="regime-interp-doc">
+            <div class="regime-reference-doc" id="regime-reference-content"></div>
+          </div>
+        </div>
+
+        <div class="screen" id="screen-theses" data-section="theses">
+          <nav class="subnav">
+            <button type="button" class="subnav-btn active" data-subview="active">Active</button>
+            <button type="button" class="subnav-btn" data-subview="builder">Builder</button>
+            <button type="button" class="subnav-btn" data-subview="archive">Archive</button>
+            <button type="button" class="subnav-btn" data-subview="trackrecord">Track Record</button>
+            <button type="button" class="theses-export-btn" id="theses-export-json">Export JSON</button>
+          </nav>
+          <div class="subview active" data-subview="active" id="theses-active-wrap"></div>
+          <div class="subview" data-subview="builder" id="theses-builder-wrap"></div>
+          <div class="subview" data-subview="archive" id="theses-archive-wrap"></div>
+          <div class="subview" data-subview="trackrecord" id="theses-trackrecord-wrap"></div>
+        </div>
+        <div class="screen" id="screen-intelligence" data-section="intelligence">
+          <!-- Search bar -->
+          <div class="intel-search-bar">
+            <div class="intel-search-wrap">
+              <span class="intel-search-icon">&#9906;</span>
+              <input type="text"
+                     id="intel-search-input"
+                     placeholder="Search across all sections..."
+                     autocomplete="off" />
+            </div>
+          </div>
+
+          <!-- Card grid -->
+          <div class="intel-grid" id="intel-grid">
+
+            <div class="intel-card" data-card="today">
+              <div class="intel-card-header">
+                <span class="intel-card-title">Today</span>
+                <button type="button" class="intel-card-open" data-target="briefing">Open</button>
+              </div>
+              <div class="intel-card-body" id="intel-card-today">
+                <div class="intel-card-loading">Loading...</div>
+              </div>
+            </div>
+
+            <div class="intel-card" data-card="signals">
+              <div class="intel-card-header">
+                <span class="intel-card-title">Signals</span>
+                <button type="button" class="intel-card-open" data-target="signals">Open</button>
+              </div>
+              <div class="intel-card-body" id="intel-card-signals">
+                <div class="intel-card-loading">Loading...</div>
+              </div>
+            </div>
+
+            <div class="intel-card" data-card="regime">
+              <div class="intel-card-header">
+                <span class="intel-card-title">Regime</span>
+                <button type="button" class="intel-card-open" data-target="regime">Open</button>
+              </div>
+              <div class="intel-card-body" id="intel-card-regime">
+                <div class="intel-card-loading">Loading...</div>
+              </div>
+            </div>
+
+            <div class="intel-card" data-card="market">
+              <div class="intel-card-header">
+                <span class="intel-card-title">Market</span>
+                <button type="button" class="intel-card-open" data-target="market">Open</button>
+              </div>
+              <div class="intel-card-body" id="intel-card-market">
+                <div class="intel-card-loading">Loading...</div>
+              </div>
+            </div>
+
+            <div class="intel-card" data-card="correlations">
+              <div class="intel-card-header">
+                <span class="intel-card-title">Correlations</span>
+                <button type="button" class="intel-card-open" data-target="correlations">Open</button>
+              </div>
+              <div class="intel-card-body" id="intel-card-correlations">
+                <div class="intel-card-loading">Loading...</div>
+              </div>
+            </div>
+
+            <div class="intel-card" data-card="forecasts">
+              <div class="intel-card-header">
+                <span class="intel-card-title">Forecasts</span>
+                <button type="button" class="intel-card-open" data-target="forecasts">Open</button>
+              </div>
+              <div class="intel-card-body" id="intel-card-forecasts">
+                <div class="intel-card-loading">Loading...</div>
+              </div>
+            </div>
+
+            <div class="intel-card" data-card="volatility">
+              <div class="intel-card-header">
+                <span class="intel-card-title">Volatility</span>
+                <button type="button" class="intel-card-open" data-target="volatility">Open</button>
+              </div>
+              <div class="intel-card-body" id="intel-card-volatility">
+                <div class="intel-card-loading">Loading...</div>
+              </div>
+            </div>
+
+            <div class="intel-card" data-card="scenarios">
+              <div class="intel-card-header">
+                <span class="intel-card-title">Scenarios</span>
+                <button type="button" class="intel-card-open" data-target="scenarios">Open</button>
+              </div>
+              <div class="intel-card-body" id="intel-card-scenarios">
+                <div class="intel-card-loading">Loading...</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="screen" id="screen-thesis-engine" data-section="thesis-engine">
+          <div id="thesis-engine-root"></div>
+        </div>
+    </main>
+  </div>
+  <link rel="stylesheet" href="thesis-engine.css">
+  <script src="modules/canvas.js"></script>
+  <script src="modules/panel-registry.js"></script>
+  <script src="modules/panels/macro-context.js"></script>
+  <script src="modules/panels/chart-panel.js"></script>
+  <script src="modules/panels/factor-view-panel.js"></script>
+  <script src="modules/panels/text-block-panel.js"></script>
+  <script src="modules/panels/analysis-output-panel.js"></script>
+  <script src="modules/panels/screener-panel.js"></script>
+  <script src="modules/intelligence.js"></script>
+  <script src="modules/research.js"></script>
+  <script src="app.js"></script>
+  <script src="modules/thesis-engine.js"></script>
+  <div id="canvas-test-harness" style="display:none;"></div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# European equities — top constituents of FTSE 100, DAX, CAC 40
+# Tickers use the exchange suffix format required by yfinance
+# Seeded via db/seed_universe.py.
+
+instruments:
+  # FTSE 100 — UK
+  - { id: "EQ.SHEL",  name: "Shell plc",                yfinance_ticker: "SHEL.L",  asset_class: equity, sector: Energy,       country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.AZN",   name: "AstraZeneca plc",          yfinance_ticker: "AZN.L",   asset_class: equity, sector: Healthcare,   country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.HSBA",  name: "HSBC Holdings",            yfinance_ticker: "HSBA.L",  asset_class: equity, sector: Financials,   country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.ULVR",  name: "Unilever plc",             yfinance_ticker: "ULVR.L",  asset_class: equity, sector: Consumer,     country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.DGE",   name: "Diageo plc",               yfinance_ticker: "DGE.L",   asset_class: equity, sector: Consumer,     country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.RIO",   name: "Rio Tinto plc",            yfinance_ticker: "RIO.L",   asset_class: equity, sector: Materials,    country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.BP",    name: "BP plc",                   yfinance_ticker: "BP.L",    asset_class: equity, sector: Energy,       country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.LLOY",  name: "Lloyds Banking Group",     yfinance_ticker: "LLOY.L",  asset_class: equity, sector: Financials,   country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.BARC",  name: "Barclays plc",             yfinance_ticker: "BARC.L",  asset_class: equity, sector: Financials,   country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.GSK",   name: "GSK plc",                  yfinance_ticker: "GSK.L",   asset_class: equity, sector: Healthcare,   country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.VOD",   name: "Vodafone Group",           yfinance_ticker: "VOD.L",   asset_class: equity, sector: Telecom,      country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+  - { id: "EQ.NWG",   name: "NatWest Group",            yfinance_ticker: "NWG.L",   asset_class: equity, sector: Financials,   country: GB, currency: GBP, market_cap: large, index_member: [FTSE100] }
+
+  # DAX — Germany
+  - { id: "EQ.SAP",   name: "SAP SE",                   yfinance_ticker: "SAP.DE",  asset_class: equity, sector: Technology,   country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+  - { id: "EQ.SIE",   name: "Siemens AG",               yfinance_ticker: "SIE.DE",  asset_class: equity, sector: Industrials,  country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+  - { id: "EQ.ALV",   name: "Allianz SE",               yfinance_ticker: "ALV.DE",  asset_class: equity, sector: Financials,   country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+  - { id: "EQ.DTE",   name: "Deutsche Telekom",         yfinance_ticker: "DTE.DE",  asset_class: equity, sector: Telecom,      country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+  - { id: "EQ.MUV2",  name: "Munich Re",                yfinance_ticker: "MUV2.DE", asset_class: equity, sector: Financials,   country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+  - { id: "EQ.BAYN",  name: "Bayer AG",                 yfinance_ticker: "BAYN.DE", asset_class: equity, sector: Healthcare,   country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+  - { id: "EQ.BMW",   name: "BMW AG",                   yfinance_ticker: "BMW.DE",  asset_class: equity, sector: Consumer,     country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+  - { id: "EQ.VOW3",  name: "Volkswagen AG",            yfinance_ticker: "VOW3.DE", asset_class: equity, sector: Consumer,     country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+  - { id: "EQ.ADS",   name: "Adidas AG",                yfinance_ticker: "ADS.DE",  asset_class: equity, sector: Consumer,     country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+  - { id: "EQ.DBK",   name: "Deutsche Bank",            yfinance_ticker: "DBK.DE",  asset_class: equity, sector: Financials,   country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+  - { id: "EQ.RHM",   name: "Rheinmetall AG",           yfinance_ticker: "RHM.DE",  asset_class: equity, sector: Industrials,  country: DE, currency: EUR, market_cap: large, index_member: [DAX] }
+
+  # CAC 40 — France
+  - { id: "EQ.LVMH",  name: "LVMH Moët Hennessy",      yfinance_ticker: "MC.PA",   asset_class: equity, sector: Consumer,     country: FR, currency: EUR, market_cap: large, index_member: [CAC40] }
+  - { id: "EQ.TTE",   name: "TotalEnergies SE",         yfinance_ticker: "TTE.PA",  asset_class: equity, sector: Energy,       country: FR, currency: EUR, market_cap: large, index_member: [CAC40] }
+  - { id: "EQ.SAN",   name: "Sanofi SA",                yfinance_ticker: "SAN.PA",  asset_class: equity, sector: Healthcare,   country: FR, currency: EUR, market_cap: large, index_member: [CAC40] }
+  - { id: "EQ.BNP",   name: "BNP Paribas",             yfinance_ticker: "BNP.PA",  asset_class: equity, sector: Financials,   country: FR, currency: EUR, market_cap: large, index_member: [CAC40] }
+  - { id: "EQ.AIR",   name: "Airbus SE",                yfinance_ticker: "AIR.PA",  asset_class: equity, sector: Industrials,  country: FR, currency: EUR, market_cap: large, index_member: [CAC40] }
+  - { id: "EQ.OR",    name: "L'Oréal SA",               yfinance_ticker: "OR.PA",   asset_class: equity, sector: Consumer,     country: FR, currency: EUR, market_cap: large, index_member: [CAC40] }
+  - { id: "EQ.SG",    name: "Société Générale",         yfinance_ticker: "GLE.PA",  asset_class: equity, sector: Financials,   country: FR, currency: EUR, market_cap: large, index_member: [CAC40] }
+  - { id: "EQ.AXA",   name: "AXA SA",                   yfinance_ticker: "CS.PA",   asset_class: equity, sector: Financials,   country: FR, currency: EUR, market_cap: large, index_member: [CAC40] }
+  - { id: "EQ.HO",    name: "Thales SA",                yfinance_ticker: "HO.PA",   asset_class: equity, sector: Industrials,  country: FR, currency: EUR, market_cap: large, index_member: [CAC40] }
+  - { id: "EQ.ENGI",  name: "Engie SA",                 yfinance_ticker: "ENGI.PA", asset_class: equity, sector: Utilities,    country: FR, currency: EUR, market_cap: large, index_member: [CAC40] }

@@ -1,0 +1,1199 @@
+# SIGNAL — Asset universe (Phase 1: 50 instruments)
+# Seeded via db/seed_universe.py. Do not hardcode elsewhere.
+
+instruments:
+  # --- Equities / ETFs ---
+  - id: EQ.SPX
+    name: S&P 500 Index
+    asset_class: equity
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [risk_on, growth, US]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: ^GSPC
+    fred_series_id: null
+    correlates_with: [EQ.VIX, FI.US10Y]
+    thesis_role: [directional, proxy]
+    tradeable_via: [ETF, futures, options]
+
+  - id: EQ.SX7E
+    name: Euro Stoxx 50
+    asset_class: equity
+    sub_type: index
+    geography: [EU, Eurozone]
+    sectors: []
+    themes: [ECB_policy, EU_rates, EU]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: ^STOXX50E
+    fred_series_id: null
+    correlates_with: [FI.DE10Y, FX.EURUSD]
+    thesis_role: [directional, proxy]
+    tradeable_via: [ETF, futures, options]
+
+  - id: EQ.VIX
+    name: CBOE Volatility Index
+    asset_class: equity
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [volatility, risk_off, stress]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: ^VIX
+    fred_series_id: null
+    correlates_with: [EQ.SPX, FI.US10Y]
+    thesis_role: [hedge, directional]
+    tradeable_via: [futures, options]
+
+  - id: EQ.SPY
+    name: SPDR S&P 500 ETF
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: []
+    themes: [risk_on, growth, US]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: SPY
+    fred_series_id: null
+    correlates_with: [EQ.SPX]
+    thesis_role: [directional]
+    tradeable_via: [ETF, options]
+
+  - id: EQ.LQD
+    name: iShares Investment Grade Corporate Bond ETF
+    asset_class: fixed_income
+    sub_type: etf
+    geography: [US]
+    sectors: []
+    themes: [credit_cycle, spreads, IG]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: LQD
+    fred_series_id: null
+    correlates_with: [EQ.HYG, FI.US10Y]
+    thesis_role: [directional, proxy]
+    tradeable_via: [ETF]
+
+  - id: EQ.HYG
+    name: iShares iBoxx High Yield Corporate Bond ETF
+    asset_class: fixed_income
+    sub_type: etf
+    geography: [US]
+    sectors: []
+    themes: [credit_cycle, spreads, HY]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: HYG
+    fred_series_id: null
+    correlates_with: [EQ.LQD, EQ.SPX]
+    thesis_role: [directional, proxy]
+    tradeable_via: [ETF]
+
+  - id: EQ.IEAC
+    name: iShares Euro Corporate Bond ETF
+    asset_class: fixed_income
+    sub_type: etf
+    geography: [EU, Eurozone]
+    sectors: []
+    themes: [ECB_policy, credit_cycle, EU_rates]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: IEAC.L
+    fred_series_id: null
+    correlates_with: [FI.DE10Y, FI.IT10Y]
+    thesis_role: [directional, proxy]
+    tradeable_via: [ETF]
+
+  # --- Sovereign / Rates (FRED) ---
+  - id: FI.US2Y
+    name: US 2-Year Treasury Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, US_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: DGS2
+    correlates_with: [FI.US10Y, FI.US10Y2Y]
+    thesis_role: [directional, pair_leg]
+    tradeable_via: [futures, cash_bond]
+
+  - id: FI.US5Y
+    name: US 5-Year Treasury Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, US_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: DGS5
+    correlates_with: [FI.US2Y, FI.US10Y]
+    thesis_role: [directional]
+    tradeable_via: [futures, cash_bond]
+
+  - id: FI.US10Y
+    name: US 10-Year Treasury Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, US_rates, growth]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: DGS10
+    correlates_with: [FI.US2Y, FI.US10Y2Y, EQ.SPX]
+    thesis_role: [directional, pair_leg]
+    tradeable_via: [futures, cash_bond]
+
+  - id: FI.US30Y
+    name: US 30-Year Treasury Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, US_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: DGS30
+    correlates_with: [FI.US10Y]
+    thesis_role: [directional]
+    tradeable_via: [futures, cash_bond]
+
+  - id: FI.US10Y2Y
+    name: US 2s10s Yield Curve
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, recession, curve_shape]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: T10Y2Y
+    correlates_with: [FI.US2Y, FI.US10Y]
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: FI.US10YIE
+    name: US 10-Year Breakeven Inflation
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [inflation, breakeven_inflation]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: T10YIE
+    correlates_with: [FI.US10Y]
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: FI.US10YTIPS
+    name: US 10-Year TIPS Yield (Real Yield)
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [real_yield, inflation]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: DFII10
+    correlates_with: [FI.US10Y, CM.GOLD]
+    thesis_role: [directional]
+    tradeable_via: [futures, cash_bond]
+
+  - id: FI.DE2Y
+    name: Germany 2-Year Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [Germany, EU]
+    sectors: []
+    themes: [ECB_policy, EU_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: null
+    correlates_with: [FI.DE10Y]
+    thesis_role: [directional]
+    tradeable_via: [futures, cash_bond]
+
+  - id: FI.DE10Y
+    name: Germany 10-Year Yield (Bund)
+    asset_class: rates
+    sub_type: sovereign
+    geography: [Germany, EU]
+    sectors: []
+    themes: [ECB_policy, EU_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: IRLTCT01DEM156N
+    correlates_with: [FI.IT10Y, FI.FR10Y, FX.EURUSD]
+    thesis_role: [directional, pair_leg]
+    tradeable_via: [futures, cash_bond]
+
+  - id: FI.IT10Y
+    name: Italy 10-Year Yield (BTP)
+    asset_class: rates
+    sub_type: sovereign
+    geography: [Italy, EU]
+    sectors: []
+    themes: [ECB_policy, EU_rates, credit_cycle]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: IRLTCT01ITM156N
+    correlates_with: [FI.DE10Y]
+    thesis_role: [directional, pair_leg]
+    tradeable_via: [futures, cash_bond]
+
+  - id: FI.FR10Y
+    name: France 10-Year Yield (OAT)
+    asset_class: rates
+    sub_type: sovereign
+    geography: [France, EU]
+    sectors: []
+    themes: [ECB_policy, EU_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: null
+    correlates_with: [FI.DE10Y, FI.IT10Y]
+    thesis_role: [directional]
+    tradeable_via: [futures, cash_bond]
+
+  - id: FI.UK10Y
+    name: UK 10-Year Gilt Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [UK]
+    sectors: []
+    themes: [boe_policy, UK]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: IRLTCT01GBM156N
+    correlates_with: [FI.US10Y, FX.GBPUSD]
+    thesis_role: [directional]
+    tradeable_via: [futures, cash_bond]
+
+  # --- Credit spreads (FRED) ---
+  - id: FI.BAMLHY
+    name: ICE BofA US High Yield Option-Adjusted Spread
+    asset_class: fixed_income
+    sub_type: corp_ig
+    geography: [US]
+    sectors: []
+    themes: [credit_cycle, spreads, HY]
+    risk_profile: high
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: BAMLH0A0HYM2
+    correlates_with: [EQ.HYG, EQ.SPX]
+    thesis_role: [directional]
+    tradeable_via: [ETF]
+
+  # --- Commodities ---
+  - id: CM.WTI
+    name: WTI Crude Oil
+    asset_class: commodity
+    sub_type: future
+    geography: [US]
+    sectors: [energy]
+    themes: [energy, commodities]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: CL=F
+    fred_series_id: null
+    correlates_with: [CM.BRENT]
+    thesis_role: [directional]
+    tradeable_via: [futures, options]
+
+  - id: CM.BRENT
+    name: Brent Crude Oil
+    asset_class: commodity
+    sub_type: future
+    geography: [Global]
+    sectors: [energy]
+    themes: [energy, commodities]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: BZ=F
+    fred_series_id: null
+    correlates_with: [CM.WTI]
+    thesis_role: [directional]
+    tradeable_via: [futures, options]
+
+  - id: CM.GOLD
+    name: Gold
+    asset_class: commodity
+    sub_type: future
+    geography: [Global]
+    sectors: []
+    themes: [real_yield, risk_off]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: GC=F
+    fred_series_id: null
+    correlates_with: [FI.US10YTIPS, EQ.VIX]
+    thesis_role: [directional, hedge]
+    tradeable_via: [futures, options, ETF]
+
+  - id: CM.COPPER
+    name: Copper
+    asset_class: commodity
+    sub_type: future
+    geography: [Global]
+    sectors: [commodities]
+    themes: [growth, infrastructure]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: HG=F
+    fred_series_id: null
+    correlates_with: [CM.GOLD, EQ.SPX]
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: CM.NATGAS
+    name: Natural Gas
+    asset_class: commodity
+    sub_type: future
+    geography: [US]
+    sectors: [energy]
+    themes: [energy]
+    risk_profile: very_high
+    liquidity: high
+    yfinance_ticker: NG=F
+    fred_series_id: null
+    correlates_with: [CM.WTI]
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  # --- FX ---
+  - id: FX.EURUSD
+    name: EUR/USD
+    asset_class: fx
+    sub_type: index
+    geography: [EU, US]
+    sectors: []
+    themes: [ECB_policy, fed_policy]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: EURUSD=X
+    fred_series_id: null
+    correlates_with: [FI.DE10Y, FI.US10Y]
+    thesis_role: [directional]
+    tradeable_via: [futures, options]
+
+  - id: FX.GBPUSD
+    name: GBP/USD
+    asset_class: fx
+    sub_type: index
+    geography: [UK, US]
+    sectors: []
+    themes: [boe_policy, fed_policy]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: GBPUSD=X
+    fred_series_id: null
+    correlates_with: [FI.UK10Y]
+    thesis_role: [directional]
+    tradeable_via: [futures, options]
+
+  - id: FX.USDJPY
+    name: USD/JPY
+    asset_class: fx
+    sub_type: index
+    geography: [Japan, US]
+    sectors: []
+    themes: [risk_on, Japan]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: USDJPY=X
+    fred_series_id: null
+    correlates_with: [FI.US10Y]
+    thesis_role: [directional]
+    tradeable_via: [futures, options]
+
+  - id: FX.DXY
+    name: US Dollar Index
+    asset_class: fx
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [dollar_strength]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: DX-Y.NYB
+    fred_series_id: null
+    correlates_with: [FX.EURUSD, CM.GOLD]
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  # --- Additional equities / sector ETFs (to reach 50) ---
+  - id: EQ.XLE
+    name: Energy Select Sector SPDR
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: [energy]
+    themes: [energy, US]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: XLE
+    fred_series_id: null
+    correlates_with: [CM.WTI, CM.BRENT]
+    thesis_role: [directional]
+    tradeable_via: [ETF, options]
+
+  - id: EQ.XLF
+    name: Financial Select Sector SPDR
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: [banking]
+    themes: [rates_sensitive, US]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: XLF
+    fred_series_id: null
+    correlates_with: [FI.US10Y, EQ.SPX]
+    thesis_role: [directional]
+    tradeable_via: [ETF, options]
+
+  - id: EQ.XLU
+    name: Utilities Select Sector SPDR
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: [infrastructure]
+    themes: [rates_sensitive]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: XLU
+    fred_series_id: null
+    correlates_with: [FI.US10Y]
+    thesis_role: [directional]
+    tradeable_via: [ETF]
+
+  - id: EQ.IWM
+    name: iShares Russell 2000 ETF
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: []
+    themes: [risk_on, growth, US]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: IWM
+    fred_series_id: null
+    correlates_with: [EQ.SPX]
+    thesis_role: [directional]
+    tradeable_via: [ETF, options]
+
+  - id: EQ.EEM
+    name: iShares MSCI Emerging Markets ETF
+    asset_class: equity
+    sub_type: etf
+    geography: [EM]
+    sectors: []
+    themes: [risk_on, EM]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: EEM
+    fred_series_id: null
+    correlates_with: [EQ.SPX, FX.DXY]
+    thesis_role: [directional]
+    tradeable_via: [ETF]
+
+  - id: EQ.GLD
+    name: SPDR Gold Shares
+    asset_class: commodity
+    sub_type: etf
+    geography: [Global]
+    sectors: []
+    themes: [real_yield, risk_off]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: GLD
+    fred_series_id: null
+    correlates_with: [CM.GOLD]
+    thesis_role: [directional, hedge]
+    tradeable_via: [ETF]
+
+  - id: EQ.SLV
+    name: iShares Silver Trust
+    asset_class: commodity
+    sub_type: etf
+    geography: [Global]
+    sectors: []
+    themes: [commodities]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: SLV
+    fred_series_id: null
+    correlates_with: [CM.GOLD]
+    thesis_role: [directional]
+    tradeable_via: [ETF]
+
+  - id: EQ.XLK
+    name: Technology Select Sector SPDR
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: [technology]
+    themes: [risk_on, growth, US]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: XLK
+    fred_series_id: null
+    correlates_with: [EQ.SPX]
+    thesis_role: [directional]
+    tradeable_via: [ETF, options]
+
+  - id: EQ.XLV
+    name: Health Care Select Sector SPDR
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: []
+    themes: [rates_sensitive, US]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: XLV
+    fred_series_id: null
+    correlates_with: [EQ.SPX]
+    thesis_role: [directional]
+    tradeable_via: [ETF, options]
+
+  - id: EQ.XLY
+    name: Consumer Discretionary Select Sector SPDR
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: []
+    themes: [growth, US]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: XLY
+    fred_series_id: null
+    correlates_with: [EQ.SPX]
+    thesis_role: [directional]
+    tradeable_via: [ETF, options]
+
+  - id: EQ.XLP
+    name: Consumer Staples Select Sector SPDR
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: []
+    themes: [US]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: XLP
+    fred_series_id: null
+    correlates_with: [EQ.SPX]
+    thesis_role: [directional]
+    tradeable_via: [ETF]
+
+  - id: EQ.XLI
+    name: Industrial Select Sector SPDR
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: [infrastructure]
+    themes: [growth, US]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: XLI
+    fred_series_id: null
+    correlates_with: [EQ.SPX, CM.COPPER]
+    thesis_role: [directional]
+    tradeable_via: [ETF, options]
+
+  - id: EQ.XLB
+    name: Materials Select Sector SPDR
+    asset_class: equity
+    sub_type: etf
+    geography: [US]
+    sectors: [commodities]
+    themes: [commodities, US]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: XLB
+    fred_series_id: null
+    correlates_with: [CM.COPPER, CM.GOLD]
+    thesis_role: [directional]
+    tradeable_via: [ETF, options]
+
+  - id: FX.AUDUSD
+    name: AUD/USD
+    asset_class: fx
+    sub_type: index
+    geography: [Australia, US]
+    sectors: []
+    themes: [risk_on]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: AUDUSD=X
+    fred_series_id: null
+    correlates_with: [CM.GOLD, FX.DXY]
+    thesis_role: [directional]
+    tradeable_via: [futures, options]
+
+  - id: FX.EURGBP
+    name: EUR/GBP
+    asset_class: fx
+    sub_type: index
+    geography: [EU, UK]
+    sectors: []
+    themes: [ECB_policy, boe_policy]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: EURGBP=X
+    fred_series_id: null
+    correlates_with: [FX.EURUSD, FX.GBPUSD]
+    thesis_role: [directional]
+    tradeable_via: [futures, options]
+
+  - id: FI.ES10Y
+    name: Spain 10-Year Government Bond Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [Spain, EU]
+    sectors: []
+    themes: [ECB_policy, EU_rates]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: null
+    correlates_with: [FI.IT10Y, FI.DE10Y]
+    thesis_role: [directional]
+    tradeable_via: [futures, cash_bond]
+
+  - id: EQ.IHYG
+    name: iShares Euro High Yield Corporate Bond ETF
+    asset_class: fixed_income
+    sub_type: etf
+    geography: [EU, Eurozone]
+    sectors: []
+    themes: [credit_cycle, spreads, HY, ECB_policy]
+    risk_profile: high
+    liquidity: high
+    yfinance_ticker: IHYG.L
+    fred_series_id: null
+    correlates_with: [EQ.IEAC, FI.IT10Y]
+    thesis_role: [directional, proxy]
+    tradeable_via: [ETF]
+
+  - id: CM.SILVER
+    name: Silver
+    asset_class: commodity
+    sub_type: future
+    geography: [Global]
+    sectors: []
+    themes: [commodities]
+    risk_profile: high
+    liquidity: very_high
+    yfinance_ticker: SI=F
+    fred_series_id: null
+    correlates_with: [CM.GOLD]
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: FI.US3M
+    name: US 3-Month Treasury Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, US_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: DGS3MO
+    correlates_with: [FI.US2Y]
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  # --- Rates / Vol (MOVE, TED) ---
+  - id: FI.TED
+    name: TED Spread
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [credit_stress, liquidity]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: TEDRATE
+    correlates_with: [EQ.VIX]
+    thesis_role: [directional]
+    tradeable_via: []
+
+  # 50th instrument
+  - id: EQ.MOVE
+    name: ICE BofA MOVE Index (Bond Volatility)
+    asset_class: rates
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [volatility, rates_volatility]
+    risk_profile: high
+    liquidity: high
+    yfinance_ticker: ^MOVE
+    fred_series_id: null
+    correlates_with: [EQ.VIX, FI.US10Y]
+    thesis_role: [hedge, directional]
+    tradeable_via: [futures]
+
+  # --- Research canonical (FRED) ---
+  - id: RATES.US3M
+    name: US 3-Month Treasury Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, US_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: DGS3MO
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: RATES.US2Y
+    name: US 2-Year Treasury Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, US_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: DGS2
+    correlates_with: []
+    thesis_role: [directional, pair_leg]
+    tradeable_via: [futures, cash_bond]
+
+  - id: RATES.US5Y
+    name: US 5-Year Treasury Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, US_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: DGS5
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures, cash_bond]
+
+  - id: RATES.US10Y
+    name: US 10-Year Treasury Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, US_rates, growth]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: DGS10
+    correlates_with: []
+    thesis_role: [directional, pair_leg]
+    tradeable_via: [futures, cash_bond]
+
+  - id: RATES.US30Y
+    name: US 30-Year Treasury Yield
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, US_rates]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: DGS30
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures, cash_bond]
+
+  - id: RATES.2S10S
+    name: US 2s10s Yield Curve Spread
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, recession, curve_shape]
+    risk_profile: low
+    liquidity: very_high
+    yfinance_ticker: null
+    fred_series_id: T10Y2Y
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: RATES.5S30S
+    name: US 5s30s Yield Curve Spread (computed)
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [fed_policy, curve_shape]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: []
+
+  - id: RATES.REAL10Y
+    name: US 10-Year TIPS Yield (Real Yield)
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [real_yield, inflation]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: DFII10
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures, cash_bond]
+
+  - id: RATES.REAL5Y
+    name: US 5-Year TIPS Yield (Real Yield)
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [real_yield, inflation]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: DFII5
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: RATES.BREAKEVEN
+    name: US 10-Year Breakeven Inflation
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [inflation, breakeven_inflation]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: T10YIE
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: RATES.BREAKEVEN5Y
+    name: US 5-Year Breakeven Inflation
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [inflation, breakeven_inflation]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: T5YIE
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: CREDIT.IG_OAS
+    name: ICE BofA US IG Corporate OAS
+    asset_class: fixed_income
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [credit_cycle, spreads, IG]
+    risk_profile: medium
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: BAMLC0A0CM
+    correlates_with: []
+    thesis_role: [directional, proxy]
+    tradeable_via: []
+
+  - id: CREDIT.HY_OAS
+    name: ICE BofA US HY Corporate OAS
+    asset_class: fixed_income
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [credit_cycle, spreads, HY]
+    risk_profile: high
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: BAMLH0A0HYM2
+    correlates_with: []
+    thesis_role: [directional, proxy]
+    tradeable_via: []
+
+  - id: MACRO.CPI
+    name: US CPI All Urban Consumers
+    asset_class: macro
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [inflation]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: CPIAUCSL
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: []
+
+  - id: MACRO.UNRATE
+    name: US Unemployment Rate
+    asset_class: macro
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [labour_market]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: UNRATE
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: []
+
+  - id: MACRO.INDPRO
+    name: US Industrial Production Index
+    asset_class: macro
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [growth]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: INDPRO
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: []
+
+  - id: MACRO.RETAIL
+    name: US Advance Retail Sales
+    asset_class: macro
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [growth]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: RSAFS
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: []
+
+  - id: MACRO.UMCSENT
+    name: U of Michigan Consumer Sentiment
+    asset_class: macro
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [growth]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: UMCSENT
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: []
+
+  - id: MACRO.ISM_MFG
+    name: US Manufacturing Employment (proxy)
+    asset_class: macro
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [growth, labour_market]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: MANEMP
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: []
+
+  # --- Research yfinance (new) ---
+  - id: FX.USDCHF
+    name: USD/CHF
+    asset_class: fx
+    sub_type: index
+    geography: [Switzerland, US]
+    sectors: []
+    themes: [risk_off]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: USDCHF=X
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures, options]
+
+  - id: CM.WHEAT
+    name: Wheat Futures
+    asset_class: commodity
+    sub_type: future
+    geography: [Global]
+    sectors: []
+    themes: [commodities]
+    risk_profile: high
+    liquidity: high
+    yfinance_ticker: ZW=F
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: CM.IRON_ORE
+    name: Iron Ore Futures
+    asset_class: commodity
+    sub_type: future
+    geography: [Global]
+    sectors: []
+    themes: [commodities, growth]
+    risk_profile: high
+    liquidity: high
+    yfinance_ticker: TIO=F
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [futures]
+
+  - id: EQ.STOXX600
+    name: STOXX Europe 600
+    asset_class: equity
+    sub_type: index
+    geography: [EU]
+    sectors: []
+    themes: [EU, risk_on]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: ^STOXX
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [ETF, futures]
+
+  - id: EQ.DAX
+    name: DAX
+    asset_class: equity
+    sub_type: index
+    geography: [Germany, EU]
+    sectors: []
+    themes: [EU, ECB_policy]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: ^GDAXI
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [ETF, futures]
+
+  - id: EQ.FTSE
+    name: FTSE 100
+    asset_class: equity
+    sub_type: index
+    geography: [UK]
+    sectors: []
+    themes: [boe_policy, UK]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: ^FTSE
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [ETF, futures]
+
+  - id: EQ.NIKKEI
+    name: Nikkei 225
+    asset_class: equity
+    sub_type: index
+    geography: [Japan]
+    sectors: []
+    themes: [Japan]
+    risk_profile: medium
+    liquidity: very_high
+    yfinance_ticker: ^N225
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: [ETF, futures]
+
+  # --- Computed series (derived in computed_series.py) ---
+  - id: CREDIT.IG_HY_DIFF
+    name: HY-IG OAS Spread (computed)
+    asset_class: fixed_income
+    sub_type: index
+    geography: [US]
+    sectors: []
+    themes: [credit_cycle, spreads]
+    risk_profile: medium
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: []
+
+  - id: CM.COPPER_GOLD_RATIO
+    name: Copper/Gold Ratio (growth pulse)
+    asset_class: commodity
+    sub_type: index
+    geography: [Global]
+    sectors: []
+    themes: [growth, commodities]
+    risk_profile: medium
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: []
+
+  - id: RATES.REAL_TERM_PREM
+    name: 10Y Real Term Premium (rough)
+    asset_class: rates
+    sub_type: sovereign
+    geography: [US]
+    sectors: []
+    themes: [real_yield, inflation]
+    risk_profile: low
+    liquidity: high
+    yfinance_ticker: null
+    fred_series_id: null
+    correlates_with: []
+    thesis_role: [directional]
+    tradeable_via: []

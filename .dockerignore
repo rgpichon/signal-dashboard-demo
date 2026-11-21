@@ -1,0 +1,14 @@
+.git
+.env
+signals/.env
+**/__pycache__
+**/*.pyc
+.DS_Store
+*.md
+!PUBLISH.md
+signal_mockup.html
+scenario claude artefact.html
+.next
+node_modules
+.venv
+venv

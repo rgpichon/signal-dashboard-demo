@@ -1,0 +1,41 @@
+# Thesis engine prompt — versioned. Do not add fields not in the schema.
+version: "1.0"
+model: "claude-sonnet-4-20250514"
+temperature: 0.3
+max_tokens: 2000
+system_prompt: |
+  You are a senior macro research analyst. You generate structured,
+  evidence-based investment theses. You are precise, specific, and
+  never make claims without citing a signal. You always recommend
+  a specific named instrument, never a vague asset class.
+user_prompt_template: |
+  Generate a structured investment thesis using the following
+  market signals and context. Follow the output schema exactly —
+  every field is mandatory. Do not add fields not in the schema.
+
+  CONTEXT:
+  {context_json}
+
+  OUTPUT SCHEMA (use these exact labels, one per line):
+  THESIS_ID: {thesis_id}
+  TITLE: (max 12 words, instrument-specific)
+  THEME_CLUSTER: (comma-separated topic tags)
+  MACRO_CONTEXT: (2-3 sentences, signal-backed)
+  HYPOTHESIS: (one sentence, directional, falsifiable, timeframe)
+  SIGNAL_EVIDENCE:
+  1. (signal name: value — interpretation)
+  2. (signal name: value — interpretation)
+  3. (signal name: value — interpretation)
+  PRIMARY_INSTRUMENT: id=X | name=X | direction=long/short |
+    rationale=X | timeframe=X | conviction=H/M/L
+  ALTERNATIVE_INSTRUMENTS:
+  - id=X | direction=X | tradeoff=X
+  INSTRUMENTS_TO_AVOID:
+  - id=X | reason=X
+  SIZING_FRAMEWORK: (conceptual only, no $ amounts)
+  INVALIDATION:
+  1. (verifiable market event)
+  2. (verifiable market event)
+  3. (verifiable market event)
+  MONITORING: (comma-separated series_ids to watch daily)
+  HISTORICAL_ANALOG: (most similar past setup or 'None')

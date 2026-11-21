@@ -1,0 +1,58 @@
+# S&P 500 — Top constituents by sector (curated for factor analysis)
+# Source: static list, update manually or via seed script
+# Seeded via db/seed_universe.py.
+
+instruments:
+  # Technology
+  - { id: "EQ.AAPL",  name: "Apple Inc.",              yfinance_ticker: "AAPL",  asset_class: equity, sector: Technology,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.MSFT",  name: "Microsoft Corp.",          yfinance_ticker: "MSFT",  asset_class: equity, sector: Technology,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.NVDA",  name: "Nvidia Corp.",             yfinance_ticker: "NVDA",  asset_class: equity, sector: Technology,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.META",  name: "Meta Platforms",           yfinance_ticker: "META",  asset_class: equity, sector: Technology,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.GOOGL", name: "Alphabet Inc.",            yfinance_ticker: "GOOGL", asset_class: equity, sector: Technology,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.AMZN",  name: "Amazon.com Inc.",          yfinance_ticker: "AMZN",  asset_class: equity, sector: Consumer Cyclical,   country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.TSLA",  name: "Tesla Inc.",               yfinance_ticker: "TSLA",  asset_class: equity, sector: Consumer Cyclical,   country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.AVGO",  name: "Broadcom Inc.",            yfinance_ticker: "AVGO",  asset_class: equity, sector: Technology,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.CRM",   name: "Salesforce Inc.",          yfinance_ticker: "CRM",   asset_class: equity, sector: Technology,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.AMD",   name: "Advanced Micro Devices",   yfinance_ticker: "AMD",   asset_class: equity, sector: Technology,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+
+  # Financials
+  - { id: "EQ.JPM",   name: "JPMorgan Chase",           yfinance_ticker: "JPM",   asset_class: equity, sector: Financials,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.BAC",   name: "Bank of America",          yfinance_ticker: "BAC",   asset_class: equity, sector: Financials,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.GS",    name: "Goldman Sachs",            yfinance_ticker: "GS",    asset_class: equity, sector: Financials,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.MS",    name: "Morgan Stanley",           yfinance_ticker: "MS",    asset_class: equity, sector: Financials,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.BLK",   name: "BlackRock Inc.",           yfinance_ticker: "BLK",   asset_class: equity, sector: Financials,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.BRK_B", name: "Berkshire Hathaway B",    yfinance_ticker: "BRK-B", asset_class: equity, sector: Financials,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.C",     name: "Citigroup Inc.",           yfinance_ticker: "C",     asset_class: equity, sector: Financials,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.WFC",   name: "Wells Fargo",              yfinance_ticker: "WFC",   asset_class: equity, sector: Financials,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+
+  # Healthcare
+  - { id: "EQ.LLY",   name: "Eli Lilly",                yfinance_ticker: "LLY",   asset_class: equity, sector: Healthcare,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.UNH",   name: "UnitedHealth Group",       yfinance_ticker: "UNH",   asset_class: equity, sector: Healthcare,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.JNJ",   name: "Johnson & Johnson",        yfinance_ticker: "JNJ",   asset_class: equity, sector: Healthcare,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.ABBV",  name: "AbbVie Inc.",              yfinance_ticker: "ABBV",  asset_class: equity, sector: Healthcare,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.MRK",   name: "Merck & Co.",              yfinance_ticker: "MRK",   asset_class: equity, sector: Healthcare,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.PFE",   name: "Pfizer Inc.",              yfinance_ticker: "PFE",   asset_class: equity, sector: Healthcare,          country: US, currency: USD, market_cap: large, index_member: [SP500] }
+
+  # Energy
+  - { id: "EQ.XOM",   name: "Exxon Mobil",             yfinance_ticker: "XOM",   asset_class: equity, sector: Energy,              country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.CVX",   name: "Chevron Corp.",            yfinance_ticker: "CVX",   asset_class: equity, sector: Energy,              country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.COP",   name: "ConocoPhillips",          yfinance_ticker: "COP",   asset_class: equity, sector: Energy,              country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.SLB",   name: "SLB (Schlumberger)",      yfinance_ticker: "SLB",   asset_class: equity, sector: Energy,              country: US, currency: USD, market_cap: large, index_member: [SP500] }
+
+  # Consumer
+  - { id: "EQ.WMT",   name: "Walmart Inc.",             yfinance_ticker: "WMT",   asset_class: equity, sector: Consumer Defensive,  country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.COST",  name: "Costco Wholesale",         yfinance_ticker: "COST",  asset_class: equity, sector: Consumer Defensive,  country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.PG",    name: "Procter & Gamble",         yfinance_ticker: "PG",    asset_class: equity, sector: Consumer Defensive,  country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.KO",    name: "Coca-Cola Co.",            yfinance_ticker: "KO",    asset_class: equity, sector: Consumer Defensive,  country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.MCD",   name: "McDonald's Corp.",         yfinance_ticker: "MCD",   asset_class: equity, sector: Consumer Cyclical,   country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.NKE",   name: "Nike Inc.",                yfinance_ticker: "NKE",   asset_class: equity, sector: Consumer Cyclical,   country: US, currency: USD, market_cap: large, index_member: [SP500] }
+
+  # Industrials
+  - { id: "EQ.CAT",   name: "Caterpillar Inc.",         yfinance_ticker: "CAT",   asset_class: equity, sector: Industrials,         country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.BA",    name: "Boeing Co.",               yfinance_ticker: "BA",    asset_class: equity, sector: Industrials,         country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.RTX",   name: "RTX Corp. (Raytheon)",    yfinance_ticker: "RTX",   asset_class: equity, sector: Industrials,         country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.HON",   name: "Honeywell International", yfinance_ticker: "HON",   asset_class: equity, sector: Industrials,         country: US, currency: USD, market_cap: large, index_member: [SP500] }
+
+  # Utilities / Real Estate
+  - { id: "EQ.NEE",   name: "NextEra Energy",           yfinance_ticker: "NEE",   asset_class: equity, sector: Utilities,           country: US, currency: USD, market_cap: large, index_member: [SP500] }
+  - { id: "EQ.AMT",   name: "American Tower",           yfinance_ticker: "AMT",   asset_class: equity, sector: Real Estate,         country: US, currency: USD, market_cap: large, index_member: [SP500] }

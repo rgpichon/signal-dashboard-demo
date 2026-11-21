@@ -1,0 +1,33 @@
+{
+  "theme": "US",
+  "signal_summary": "US topic sentiment averaged -0.12 over the past week with article velocity in cold start. Regime indicators show elevated equity vol and suppressed curve shape.",
+  "article_velocity": null,
+  "sentiment_shift": -0.08,
+  "top_articles": [
+    {"title": "Fed signals patience on rates amid inflation data", "source_id": "fed_speeches_rss", "published_at": "2026-03-05T14:00:00Z", "sentiment": -0.15},
+    {"title": "Treasury yields edge higher on strong payrolls", "source_id": "reuters_markets_rss", "published_at": "2026-03-04T12:00:00Z", "sentiment": 0.02}
+  ],
+  "regime_snapshot": {
+    "date": "2026-03-09",
+    "growth_pulse": "INSUFFICIENT_DATA",
+    "credit_stress": "SUPPRESSED",
+    "real_yield": "ELEVATED",
+    "dollar_strength": "ELEVATED",
+    "rates_vol": "ELEVATED",
+    "equity_vol": "ELEVATED",
+    "curve_shape": "SUPPRESSED",
+    "fingerprint": "INSUFFICIENT_DATA-SUPPRESSED-ELEVATED-ELEVATED-ELEVATED-ELEVATED-SUPPRESSED"
+  },
+  "correlations": [
+    {"series_id": "EQ.SPX", "lag_days": 0, "correlation": 0.22, "quality": "low_signal"}
+  ],
+  "market_moves": {
+    "EQ.SPX": {"move_1d": 0.3, "move_5d": -0.8, "move_20d": 2.1}
+  },
+  "positioning": [],
+  "matched_instruments": [
+    {"id": "EQ.SPX", "name": "S&P 500 Index", "liquidity": "very_high"},
+    {"id": "EQ.VIX", "name": "CBOE Volatility Index", "liquidity": "very_high"}
+  ],
+  "forced": false
+}

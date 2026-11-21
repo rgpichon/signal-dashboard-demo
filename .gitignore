@@ -1,0 +1,16 @@
+.env
+signals/.env
+**/__pycache__/
+**/*.pyc
+.DS_Store
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.next/
+node_modules/
+signal_mockup.html
+scenario claude artefact.html
+SIGNAL_*.md
+*.docx
+.cursor/
